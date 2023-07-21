@@ -8,6 +8,7 @@ const disponible = ref(0)
 
 const definirPresupuesto = (cantidad) => {
   presupuesto.value = cantidad
+  disponible.value = cantidad
 }
 </script>
 
@@ -17,7 +18,7 @@ const definirPresupuesto = (cantidad) => {
       <h1>Planificador de gastos</h1>
       <div class="contenedor-header contenedor sombra">
         <Presupuesto v-if="presupuesto === 0" @definir-presupuesto="definirPresupuesto" />
-        <control-presupuesto v-else :presupuesto="presupuesto" :diponible="disponible" />
+        <control-presupuesto v-else :presupuesto="presupuesto" :disponible="disponible" />
       </div>
     </header>
   </div>
