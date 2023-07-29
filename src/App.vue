@@ -58,7 +58,7 @@ const guardarGasto = () => {
 </script>
 
 <template>
-  <div>
+  <div :class="{ fijar: modal.mostrar }">
     <header>
       <h1>Planificador de gastos</h1>
       <div class="contenedor-header contenedor sombra">
@@ -119,6 +119,10 @@ h1 {
 h2 {
   font-size: 3rem;
 }
+.fijar {
+  overflow: hidden;
+  height: 100vh;
+}
 header {
   background-color: var(--azul);
 }
@@ -139,7 +143,7 @@ header h1 {
   padding: 5rem;
 }
 .sombra {
-  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   background-color: var(--blanco);
   border-radius: 1.2rem;
   padding: 5rem;
