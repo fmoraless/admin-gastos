@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, watch } from 'vue'
 import ThePresupuesto from './components/ThePresupuesto.vue'
 import ControlPresupuesto from '@/components/ControlPresupuesto.vue'
 import iconoNuevoGasto from './assets/img/nuevo-gasto.svg'
@@ -13,6 +13,7 @@ const modal = reactive({
 })
 const presupuesto = ref(0)
 const disponible = ref(0)
+const gastado = ref(0)
 
 const gasto = reactive({
   nombre: '',
@@ -23,6 +24,18 @@ const gasto = reactive({
 })
 
 const gastos = ref([])
+
+watch(
+  gastos,
+  () => {
+    const totalGastado = gastos.value.reduce((total, gasto) => gasto.cantidad + total, 0)
+    console.log(totalGastado)
+    gastado.value = totalGastado
+    disponible.value = presupuesto.value - totalGastado
+  },
+  { deep: true }
+)
+
 const definirPresupuesto = (cantidad) => {
   presupuesto.value = cantidad
   disponible.value = cantidad
@@ -63,7 +76,12 @@ const guardarGasto = () => {
       <h1>Planificador de gastos</h1>
       <div class="contenedor-header contenedor sombra">
         <ThePresupuesto v-if="presupuesto === 0" @definir-presupuesto="definirPresupuesto" />
-        <control-presupuesto v-else :presupuesto="presupuesto" :disponible="disponible" />
+        <control-presupuesto
+          v-else
+          :presupuesto="presupuesto"
+          :disponible="disponible"
+          :gastado="gastado"
+        />
       </div>
     </header>
     <main v-if="presupuesto > 0">
