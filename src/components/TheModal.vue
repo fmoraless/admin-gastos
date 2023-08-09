@@ -10,7 +10,8 @@ const emit = defineEmits([
   'update:nombre',
   'update:cantidad',
   'update:categoria',
-  'guardar-gasto'
+  'guardar-gasto',
+  'eliminar-gasto'
 ])
 const props = defineProps({
   modal: {
@@ -137,6 +138,10 @@ const isEditing = computed(() => {
         </div>
         <input type="submit" :value="[isEditing ? 'Guardar Cambios' : 'Añadir gasto']" />
       </form>
+
+      <button type="submit" class="btn-eliminar" v-if="isEditing" @click="$emit('eliminar-gasto')">
+        Eliminar gasto
+      </button>
     </div>
   </div>
 </template>
@@ -204,6 +209,17 @@ const isEditing = computed(() => {
   color: var(--blanco);
   font-size: 2.2rem;
   font-weight: 900;
+  cursor: pointer;
+}
+.btn-eliminar {
+  border: none;
+  padding: 1rem;
+  width: 100%;
+  background-color: #ef4444;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--blanco);
+  margin-top: 10rem;
   cursor: pointer;
 }
 </style>
